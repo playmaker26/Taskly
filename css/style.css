@@ -1,0 +1,278 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #050d26;
+  height: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 360px;
+  }
+  main section {
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+    border-radius: 5px;
+  }
+
+  main section header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 360px;
+  }
+
+  main section header img {
+    width: 100%;
+  }
+
+  main section form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  main section form ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+    background-color: #fff;
+    list-style: none;
+  }
+
+  main section form ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-family: "Open Sans";
+    width: 100%;
+  }
+
+  main section form ul li div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    width: 157.5px;
+  }
+
+  main section form ul li div figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  main section form ul li div figure .save-icon {
+    fill: #2173a6;
+  }
+
+  main section form ul li div figure .complete-icon {
+    fill: #00ff00;
+    margin-left: 25px;
+  }
+
+  main section form ul li div figure .delete-icon {
+    fill: #ff0000;
+  }
+
+  main section form ul li div figure figcaption p {
+    font-size: 16px;
+    color: #000;
+    font-family: "Open Sans";
+  }
+
+  main section form ul li div figure svg {
+    width: 21.88px;
+  }
+
+  main section form div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  main section form div button {
+    width: 111px;
+    padding: 2px;
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: #2173a6;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Open Sans";
+  }
+
+  main section form div input {
+    width: 100%;
+    padding: 5px;
+    border: #000 solid 1px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 577px;
+  }
+  main section {
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+    border-radius: 5px;
+  }
+
+  main section header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 310px;
+  }
+
+  main section header img {
+    width: 100%;
+  }
+
+  main section form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 415px;
+  }
+
+  main section form ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+    background-color: #fff;
+    list-style: none;
+  }
+
+  main section form ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-family: "Open Sans";
+    width: 100%;
+  }
+
+  main section form ul li div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    width: 157.5px;
+  }
+
+  main section form ul li div figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  main section form ul li div figure .save-icon {
+    fill: #2173a6;
+  }
+
+  main section form ul li div figure .complete-icon {
+    fill: #00ff00;
+    margin-left: 25px;
+  }
+
+  main section form ul li div figure .delete-icon {
+    fill: #ff0000;
+  }
+
+  main section form ul li div figure figcaption p {
+    font-size: 16px;
+    color: #000;
+    font-family: "Open Sans";
+  }
+
+  main section form ul li div figure svg {
+    width: 21.88px;
+  }
+
+  main section form div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  main section form div button {
+    width: 111px;
+    padding: 2px;
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: #2173a6;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Open Sans";
+  }
+
+  main section form div input {
+    width: 100%;
+    padding: 5px;
+    border: #000 solid 1px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  main {
+    width: 714px;
+  }
+
+  main section form {
+    width: 444px;
+  }
+
+  main section form div button {
+    transition: all ease-in 500ms;
+    cursor: pointer;
+  }
+
+  main section form div button:hover {
+    background-color: #bf5d54;
+  }
+}

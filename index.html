@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="font-6/css/all.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="js/script.js" defer></script>
+    <title>Taskly</title>
+  </head>
+  <body>
+    <main>
+      <section class="task-list">
+        <header>
+          <img src="logo/logo.png" alt="Taskly logo" />
+        </header>
+        <form id="task-form">
+          <label for="task-input" class="label"
+            >Create a new task:</label
+          >
+          <div>
+            <button type="button" class="btn-list">Add</button>
+            <input
+              type="text"
+              id="task-input"
+              class="input-list"
+              placeholder="Create List"
+            />
+          </div>
+          <ul class="ul-list"></ul>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
