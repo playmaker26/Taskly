@@ -68,6 +68,7 @@ html {
     font-size: 16px;
     font-family: "Open Sans";
     width: 100%;
+    font-weight: bold;
   }
 
   main section form ul li div {
@@ -92,17 +93,24 @@ html {
 
   main section form ul li div figure .complete-icon {
     fill: #00ff00;
-    margin-left: 25px;
   }
 
   main section form ul li div figure .delete-icon {
     fill: #ff0000;
   }
 
+  main section form ul li div figure figcaption {
+    width: 122.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   main section form ul li div figure figcaption p {
     font-size: 16px;
     color: #000;
     font-family: "Open Sans";
+    font-weight: 400;
   }
 
   main section form ul li div figure svg {
@@ -114,6 +122,60 @@ html {
     justify-content: center;
     align-items: center;
     width: 100%;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 999;
+  }
+
+  dialog {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    border: none;
+    margin: auto;
+  }
+
+  dialog p {
+    color: #000;
+    font-family: "Open Sans";
+    font-size: 16px;
+  }
+
+  dialog article {
+    display: flex;
+    align-self: flex-end;
+    gap: 18px;
+  }
+
+  dialog article button {
+    align-items: flex-start;
+    width: 73px;
+    border: none;
+    appearance: none;
+    outline: none;
+    font-family: "Open Sans";
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+
+  dialog article .delete-btn {
+    background-color: #ff0000;
+  }
+
+  dialog article .cancel-btn {
+    background-color: #2173a6;
   }
 
   main section form div button {
@@ -190,6 +252,7 @@ html {
     font-size: 16px;
     font-family: "Open Sans";
     width: 100%;
+    font-weight: bold;
   }
 
   main section form ul li div {
@@ -214,17 +277,24 @@ html {
 
   main section form ul li div figure .complete-icon {
     fill: #00ff00;
-    margin-left: 25px;
   }
 
   main section form ul li div figure .delete-icon {
     fill: #ff0000;
   }
 
+  main section form ul li div figure figcaption {
+    width: 122.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   main section form ul li div figure figcaption p {
     font-size: 16px;
     color: #000;
     font-family: "Open Sans";
+    font-weight: 400;
   }
 
   main section form ul li div figure svg {
@@ -236,6 +306,73 @@ html {
     justify-content: center;
     align-items: center;
     width: 100%;
+  }
+
+  main section form div button {
+    width: 111px;
+    padding: 2px;
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: #2173a6;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Open Sans";
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 999;
+  }
+
+  dialog {
+    width: 577px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    border: none;
+    margin: auto;
+  }
+
+  dialog p {
+    color: #000;
+    font-family: "Open Sans";
+    font-size: 16px;
+  }
+
+  dialog article {
+    display: flex;
+    align-self: flex-end;
+    gap: 18px;
+  }
+
+  dialog article button {
+    align-items: flex-start;
+    width: 73px;
+    border: none;
+    appearance: none;
+    outline: none;
+    font-family: "Open Sans";
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+
+  dialog article .delete-btn {
+    background-color: #ff0000;
+  }
+
+  dialog article .cancel-btn {
+    background-color: #2173a6;
   }
 
   main section form div button {
@@ -274,5 +411,17 @@ html {
 
   main section form div button:hover {
     background-color: #bf5d54;
+  }
+
+  main section form ul li div figure:hover {
+    cursor: pointer;
+  }
+
+  dialog {
+    width: 714px;
+  }
+
+  dialog article button:hover {
+    cursor: pointer;
   }
 }

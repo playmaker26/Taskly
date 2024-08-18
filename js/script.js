@@ -59,26 +59,149 @@ addTask();
 
 
 let listStatus = function() {
-    let saveIcon = document.querySelector('.save-icon');
-    let Save = false;
-    let completeIcon = document.querySelector('.complete-icon');
-    let Complete = false;
-    let deleteIcon = document.querySelector('.delete-icon');
-   let Delete = false;
+    document.querySelectorAll('.figure-save').forEach((saveFigure) => {
+        saveFigure.addEventListener('click', function() {
+            let li = this.closest('li');
+            let deleteFigure = li.querySelector('.figure-delete');
+            let saveIcon = li.querySelector('.save-icon');
+            let saveText = li.querySelector('.save-text');
 
-   saveIcon.addEventListener('click', () => {
-    if(!Save) {
-        Save = true;
-        document.querySelector('.figure-delete').style.display = 'none';
-        saveIcon.style.fill = '#FFA500';
-        document.querySelector('.save-text').innerHTML= 'Unsave';
-        document.querySelector('li').style.color = '#2173a6';
-    }else {
-        Save = false;
-        document.querySelector('.figure-delete').style.display = 'flex';
-        saveIcon.style.fill = '#2173a6';
-        document.querySelector('.save-text').innerHTML= 'save';
-        document.querySelector('li').style.color = '#000';
-    }
-   });
-}
+            if (!li.dataset.saved || li.dataset.saved === "false") {
+                li.dataset.saved = "true";
+                saveIcon.style.fill = '#FFA500';
+                saveText.innerHTML = 'Unsave';
+                li.style.color = '#2173a6';
+                deleteFigure.style.display = 'none';
+            } else {
+                li.dataset.saved = "false";
+                saveIcon.style.fill = '#2173a6';
+                saveText.innerHTML = 'Save';
+                li.style.color = '#000000';
+                deleteFigure.style.display = 'flex';
+            }
+        });
+    });
+
+    document.querySelectorAll('.figure-complete').forEach((completeFigure) => {
+        completeFigure.addEventListener('click', function() {
+            let li = this.closest('li');
+            let saveFigure = li.querySelector('.figure-save');
+            let completeIcon = li.querySelector('.complete-icon');
+            let completeText = li.querySelector('.complete-text');
+
+            if (!li.dataset.completed || li.dataset.completed === "false") {
+                li.dataset.completed = "true";
+                completeIcon.style.fill = '#FFA500';
+                completeText.innerHTML = 'Incomplete';
+                li.style.color = '#00ff00';
+                saveFigure.style.display = 'none';
+            } else {
+                li.dataset.completed = "false";
+                completeIcon.style.fill = '#00ff00';
+                completeText.innerHTML = 'Complete';
+                li.style.color = '#000000';
+                saveFigure.style.display = 'flex';
+            }
+        });
+    });
+
+    // Reworked delete event listener
+    document.querySelectorAll('.figure-delete').forEach((deleteFigure) => {
+        deleteFigure.addEventListener('click', function() {
+            let li = this.closest('li');
+
+            // If the task is saved, show an alert
+            if (li.dataset.saved === "true") {
+                alert('This task is saved. Unsave the task to delete.');
+                return; // Stop further execution
+            }
+
+            // Show the modal for deletion confirmation
+            let { dialog, overlay } = modal();
+
+            dialog.showModal();
+
+            // Handle delete confirmation
+            dialog.querySelector('.delete-btn').addEventListener('click', () => {
+                li.remove();  // Remove the task only after confirmation
+                dialog.close();
+                document.body.removeChild(dialog);
+                document.body.removeChild(overlay);
+            });
+
+            // Handle cancel action
+            dialog.querySelector('.cancel-btn').addEventListener('click', () => {
+                dialog.close();
+                document.body.removeChild(dialog);
+                document.body.removeChild(overlay);
+            });
+
+            // Close modal if overlay is clicked
+            overlay.addEventListener('click', () => {
+                dialog.close();
+                document.body.removeChild(dialog);
+                document.body.removeChild(overlay);
+            });
+        });
+    });
+};
+
+
+
+
+
+
+let modal = function() {
+    let dialog = document.createElement('dialog');
+    dialog.classList.add('modal');
+    let overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+
+    dialog.innerHTML = `
+        <p>Are you sure you want to delete this task?</p>
+        <article>
+            <button class='delete-btn'>Delete</button>
+            <button class='cancel-btn'>Cancel</button>
+        </article>
+    `;
+
+    document.body.appendChild(dialog);
+    document.body.appendChild(overlay);
+
+    return { dialog, overlay };
+};
+
+let handleDelete = function(deleteFigure) {
+    deleteFigure.addEventListener('click', function(event) {
+        event.preventDefault();  // Prevent any default action (like a form submission or link following)
+        
+        let listItem = this.closest('li');
+        let { dialog, overlay } = modal();  // Create and show the modal
+
+        dialog.showModal();  // Display the modal
+
+        // Handle delete confirmation
+        dialog.querySelector('.delete-btn').addEventListener('click', () => {
+            listItem.remove();  // Remove the task only after confirmation
+            dialog.close();  // Close the dialog
+            document.body.removeChild(dialog);  // Remove dialog from DOM
+            document.body.removeChild(overlay);  // Remove overlay from DOM
+        });
+
+        // Handle cancel action
+        dialog.querySelector('.cancel-btn').addEventListener('click', () => {
+            dialog.close();  // Close the dialog
+            document.body.removeChild(dialog);  // Remove dialog from DOM
+            document.body.removeChild(overlay);  // Remove overlay from DOM
+        });
+
+        // Close modal if overlay is clicked
+        overlay.addEventListener('click', () => {
+            dialog.close();  // Close the dialog
+            document.body.removeChild(dialog);  // Remove dialog from DOM
+            document.body.removeChild(overlay);  // Remove overlay from DOM
+        });
+    });
+};
+
+document.querySelectorAll('.figure-delete').forEach(handleDelete);
