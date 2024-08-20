@@ -2,7 +2,7 @@ let addTask = function () {
     let addButton = document.querySelector('.btn-list');
     let input = document.querySelector('.input-list');
     let ulList = document.querySelector('.ul-list');
-    let label = document.querySelector('.label')
+    let label = document.querySelector('.label');
     addButton.addEventListener('click', () => {
         if(input.value.trim() === '') {
             label.style.color = '#FF0000';
@@ -13,7 +13,6 @@ let addTask = function () {
             label.innerHTML = '';
             input.style.border = '';
             input.classList.remove('error');
-
             let li = document.createElement('li');
             li.innerHTML = input.value;
             ulList.appendChild(li);
@@ -52,8 +51,10 @@ let addTask = function () {
             label.style.color = '#000000';
             input.style.border = '';
             input.classList.remove('error');
+            
         }
     });
+   
 }
 addTask();
 
@@ -71,13 +72,14 @@ let listStatus = function() {
                 saveIcon.style.fill = '#FFA500';
                 saveText.innerHTML = 'Unsave';
                 li.style.color = '#2173a6';
-                deleteFigure.style.display = 'none';
+                saveState();
+                
             } else {
                 li.dataset.saved = "false";
                 saveIcon.style.fill = '#2173a6';
                 saveText.innerHTML = 'Save';
                 li.style.color = '#000000';
-                deleteFigure.style.display = 'flex';
+                localStorage.removeItem('data');
             }
         });
     });
@@ -85,7 +87,6 @@ let listStatus = function() {
     document.querySelectorAll('.figure-complete').forEach((completeFigure) => {
         completeFigure.addEventListener('click', function() {
             let li = this.closest('li');
-            let saveFigure = li.querySelector('.figure-save');
             let completeIcon = li.querySelector('.complete-icon');
             let completeText = li.querySelector('.complete-text');
 
@@ -94,49 +95,43 @@ let listStatus = function() {
                 completeIcon.style.fill = '#FFA500';
                 completeText.innerHTML = 'Incomplete';
                 li.style.color = '#00ff00';
-                saveFigure.style.display = 'none';
+                
             } else {
                 li.dataset.completed = "false";
                 completeIcon.style.fill = '#00ff00';
                 completeText.innerHTML = 'Complete';
                 li.style.color = '#000000';
-                saveFigure.style.display = 'flex';
+                
             }
         });
     });
 
-    // Reworked delete event listener
     document.querySelectorAll('.figure-delete').forEach((deleteFigure) => {
         deleteFigure.addEventListener('click', function() {
             let li = this.closest('li');
 
-            // If the task is saved, show an alert
             if (li.dataset.saved === "true") {
                 alert('This task is saved. Unsave the task to delete.');
-                return; // Stop further execution
+                return;
             }
 
-            // Show the modal for deletion confirmation
             let { dialog, overlay } = modal();
 
             dialog.showModal();
 
-            // Handle delete confirmation
             dialog.querySelector('.delete-btn').addEventListener('click', () => {
-                li.remove();  // Remove the task only after confirmation
+                li.remove();
                 dialog.close();
                 document.body.removeChild(dialog);
                 document.body.removeChild(overlay);
             });
 
-            // Handle cancel action
             dialog.querySelector('.cancel-btn').addEventListener('click', () => {
                 dialog.close();
                 document.body.removeChild(dialog);
                 document.body.removeChild(overlay);
             });
 
-            // Close modal if overlay is clicked
             overlay.addEventListener('click', () => {
                 dialog.close();
                 document.body.removeChild(dialog);
@@ -173,35 +168,53 @@ let modal = function() {
 
 let handleDelete = function(deleteFigure) {
     deleteFigure.addEventListener('click', function(event) {
-        event.preventDefault();  // Prevent any default action (like a form submission or link following)
+        event.preventDefault();
         
         let listItem = this.closest('li');
-        let { dialog, overlay } = modal();  // Create and show the modal
+        let { dialog, overlay } = modal();
 
-        dialog.showModal();  // Display the modal
+        dialog.showModal();
 
-        // Handle delete confirmation
         dialog.querySelector('.delete-btn').addEventListener('click', () => {
-            listItem.remove();  // Remove the task only after confirmation
-            dialog.close();  // Close the dialog
-            document.body.removeChild(dialog);  // Remove dialog from DOM
-            document.body.removeChild(overlay);  // Remove overlay from DOM
+            listItem.remove();
+            dialog.close();
+            document.body.removeChild(dialog);
+            document.body.removeChild(overlay);
         });
 
-        // Handle cancel action
         dialog.querySelector('.cancel-btn').addEventListener('click', () => {
-            dialog.close();  // Close the dialog
-            document.body.removeChild(dialog);  // Remove dialog from DOM
-            document.body.removeChild(overlay);  // Remove overlay from DOM
+            dialog.close();
+            document.body.removeChild(dialog);
+            document.body.removeChild(overlay);
         });
 
-        // Close modal if overlay is clicked
         overlay.addEventListener('click', () => {
-            dialog.close();  // Close the dialog
-            document.body.removeChild(dialog);  // Remove dialog from DOM
-            document.body.removeChild(overlay);  // Remove overlay from DOM
+            dialog.close();
+            document.body.removeChild(dialog);
+            document.body.removeChild(overlay);
         });
     });
 };
 
 document.querySelectorAll('.figure-delete').forEach(handleDelete);
+
+let saveState = function() {
+    let ul = document.querySelector('.ul-list');
+
+    localStorage.setItem('data', ul.innerHTML);
+}
+
+let showTask = function() {
+    let ul = document.querySelector('.ul-list');
+
+    ul.innerHTML = localStorage.getItem('data');
+}
+showTask();
+
+let removeFromStorage = function() {
+let save = document.querySelectorAll('.figure-save');
+
+save.forEach(saved => {
+localStorage.removeItem('data');
+});
+}
