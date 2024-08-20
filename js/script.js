@@ -41,6 +41,7 @@ let addTask = function () {
             </figure>
             </div>
             `
+            input.value = '';
             listStatus();
         }
     });
@@ -54,7 +55,6 @@ let addTask = function () {
             
         }
     });
-   
 }
 addTask();
 
@@ -79,7 +79,7 @@ let listStatus = function() {
                 saveIcon.style.fill = '#2173a6';
                 saveText.innerHTML = 'Save';
                 li.style.color = '#000000';
-                localStorage.removeItem('data');
+                removeItem();
             }
         });
     });
@@ -211,10 +211,6 @@ let showTask = function() {
 }
 showTask();
 
-let removeFromStorage = function() {
-let save = document.querySelectorAll('.figure-save');
-
-save.forEach(saved => {
-localStorage.removeItem('data');
-});
+let removeItem = function() {
+    localStorage.removeItem('data');
 }
