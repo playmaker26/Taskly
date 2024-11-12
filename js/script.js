@@ -178,7 +178,7 @@ let addButton = document.querySelector('.add');
 let ul = document.querySelector('.ul-list');
 
 // Track the index of the task being edited
-let currentEditIndex = null;  
+let currentEditIndex = null;
 
 // Load tasks from local storage on page load
 window.addEventListener('load', loadTasksFromStorage);
@@ -249,6 +249,7 @@ let createTask = function(taskName, index, isSaved = false) {
 
 // Load saved tasks from local storage
 function loadTasksFromStorage() {
+    ul.innerHTML = ''; // Clear the list to prevent duplicates
     for (let i = 0; i < localStorage.length; i++) {
         let taskName = localStorage.key(i);
         let taskData = JSON.parse(localStorage.getItem(taskName));
@@ -258,22 +259,24 @@ function loadTasksFromStorage() {
     }
 }
 
-// Toggle save/unsave task in local storage
 function toggleSaveTask(taskName, taskTextElement, saveIcon) {
     const saveText = saveIcon.nextElementSibling;
+    const currentTaskName = taskTextElement.textContent; // Updated task name after edit
 
-    if (localStorage.getItem(taskName)) {
-        // Remove task from local storage (unsave)
-        localStorage.removeItem(taskName);
-        taskTextElement.style.color = ''; // Reset color
-        saveText.innerText = 'Save'; // Change to "Save"
+    if (localStorage.getItem(currentTaskName)) {
+        // Remove task from localStorage (unsave)
+        localStorage.removeItem(currentTaskName);
+        taskTextElement.style.color = ''; 
+        saveText.innerText = 'Save'; 
     } else {
-        // Save task to local storage
-        localStorage.setItem(taskName, JSON.stringify({ saved: true }));
-        taskTextElement.style.color = '#28a745'; // Green color for saved task
-        saveText.innerText = 'Unsave'; // Change to "Unsave"
+        // Save the task in localStorage
+        localStorage.setItem(currentTaskName, JSON.stringify({ saved: true }));
+        taskTextElement.style.color = '#28a745'; 
+        saveText.innerText = 'Unsave'; 
     }
 }
+
+
 
 // Function to delete a task
 function deleteTask(taskName, li) {
@@ -309,7 +312,6 @@ inputField.addEventListener('keydown', (e) => {
     }
 });
 
-// Edit task functionality
 function editTask(taskTextElement, li, originalTaskName, index) {
     // Set the task being edited and populate the input field
     currentEditIndex = index;
@@ -319,24 +321,32 @@ function editTask(taskTextElement, li, originalTaskName, index) {
     inputField.focus(); // Focus on input field
 }
 
-// Update task when editing
+
 function updateTask(updatedTaskName) {
-    let li = ul.children[currentEditIndex];
-    let taskTextElement = li.querySelector('.task-text');
-    
     if (updatedTaskName.trim() === '') {
         alert('Task name cannot be empty!');
         return;
     }
 
-    // Update the task in the list and in local storage
+    // Identify the task being edited and remove the old version from the list
+    let li = ul.children[currentEditIndex];
+    let taskTextElement = li.querySelector('.task-text');
+    const originalTaskName = taskTextElement.textContent;
+
+    // Remove the original task from localStorage before updating
+    localStorage.removeItem(originalTaskName);
+
+    // Update the task text in the DOM
     taskTextElement.textContent = updatedTaskName;
+
+    // Save the updated task in localStorage with the new name
     localStorage.setItem(updatedTaskName, JSON.stringify({ saved: false }));
 
-    // Reset the task edit state
+    // Reset editing state
     currentEditIndex = null;
-    inputField.style.color = ''; // Reset color
-    taskTextElement.style.display = 'inline'; // Show the updated task name
+    inputField.style.color = '';
+    inputField.value = '';
+    taskTextElement.style.display = 'inline';
 }
 
 // Create a new task and add it to the list
@@ -345,3 +355,4 @@ function createNewTask(taskName) {
     createTask(taskName, taskIndex);
     localStorage.setItem(taskName, JSON.stringify({ saved: false }));
 }
+
