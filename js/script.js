@@ -53,6 +53,7 @@ let createTask = function(taskName, index, isSaved = false) {
     // Set task colors based on its saved status
     const saveIcon = li.querySelector('.save');
     const editIcon = li.querySelector('.edit');
+    const completeIcon = li.querySelector('.complete');
     const saveText = saveIcon.nextElementSibling;
     const taskTextElement = li.querySelector('.task-text');
     
@@ -66,6 +67,8 @@ let createTask = function(taskName, index, isSaved = false) {
     
     // Edit functionality
     editIcon.addEventListener('click', () => editTask(taskTextElement, li, taskName, index));
+
+    completeIcon.addEventListener('click', () => toggleCompleteTask(taskTextElement, completeIcon));
 
     // Add delete functionality
     const deleteIcon = li.querySelector('.delete');
@@ -178,4 +181,59 @@ function updateTask(updatedTaskName) {
 function createNewTask(taskName) {
     let taskIndex = ul.children.length;
     createTask(taskName, taskIndex);
+}
+
+function toggleCompleteTask(taskTextElement, completeIcon) {
+    const completeText = completeIcon.nextElementSibling;
+    const isComplete = taskTextElement.style.color === 'rgb(255, 215, 0)'; // Check if the color is gold
+
+    if (isComplete) {
+        taskTextElement.style.color = ''; // Reset to default
+        completeText.innerText = 'Complete';
+    } else {
+        taskTextElement.style.color = '#ffd700'; // Set to gold
+        completeText.innerText = 'Incomplete';
+    }
+}
+
+function deleteTask(taskName, li) {
+    const saveText = li.querySelector('.save').nextElementSibling;
+
+    if (saveText.innerText === 'Unsave') {
+        alert('This task is saved. Please unsave it before deleting.');
+        return;
+    }
+
+    // Create the modal element
+    const modal = document.createElement('dialog');
+    modal.innerHTML = `
+        <p>Are you sure you want to delete this task?</p>
+        <div>
+            <button class="confirm">Confirm</button>
+            <button class="cancel">Cancel</button>
+        </div>
+    `;
+
+    // Append the modal to the body
+    document.body.appendChild(modal);
+
+    // Show the modal
+    modal.showModal();
+
+    // Select confirm and cancel buttons
+    const confirmButton = modal.querySelector('.confirm');
+    const cancelButton = modal.querySelector('.cancel');
+
+    // Confirm deletion
+    confirmButton.onclick = () => {
+        li.remove(); // Remove the task
+        modal.close(); // Close the modal
+        modal.remove(); // Remove modal from DOM
+    };
+
+    // Cancel deletion
+    cancelButton.onclick = () => {
+        modal.close(); // Close the modal
+        modal.remove(); // Remove modal from DOM
+    };
 }

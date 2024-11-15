@@ -130,6 +130,56 @@ input[type="text"] {
   font-family: Roboto;
 }
 
+dialog {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 306px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  border: none;
+}
+
+dialog p {
+  font-size: 16px;
+  font-family: lato;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+}
+
+dialog div {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+dialog div button {
+  padding: 10px;
+  text-align: center;
+  font-family: lato;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  border: none;
+  appearance: none;
+}
+
+.confirm {
+  background-color: #f44336;
+}
+
+.cancel {
+  background-color: #9e9e9e;
+}
+
 /* Media queries */
 @media only screen and (max-width: 767px) {
   main header,
@@ -137,6 +187,10 @@ input[type="text"] {
   main header figure img {
     width: 100%;
   }
+}
+
+dialog {
+  width: 306px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -147,6 +201,10 @@ input[type="text"] {
   main header figure,
   main header figure img {
     width: 338px;
+  }
+
+  dialog {
+    width: 612px;
   }
 }
 
@@ -162,5 +220,9 @@ input[type="text"] {
 
   .add:hover {
     background-color: #bf5d54;
+  }
+
+  dialog {
+    width: 812px;
   }
 }
